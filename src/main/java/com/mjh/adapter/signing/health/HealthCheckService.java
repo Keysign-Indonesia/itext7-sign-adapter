@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("myhealthservices")
-@RequestMapping({"/healthcheck"})
+@RequestMapping({"/adapter"})
 //@Api(value = "Server Health Check", description = "Operations to check server health")
 public class HealthCheckService {
     Logger logger = LoggerFactory.getLogger(HealthCheckService.class);
