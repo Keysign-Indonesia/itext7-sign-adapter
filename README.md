@@ -7,5 +7,5 @@ $>mvn clean install -Pproduction -DskipTests
 
 ## Run command
 ```
-$>java -jar target/itext7adapter-1.1.0.jar
+$>java -jar target/itext7adapter-1.1.1.jar
 ```
