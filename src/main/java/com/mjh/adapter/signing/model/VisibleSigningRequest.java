@@ -3,33 +3,65 @@ package com.mjh.adapter.signing.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class VisibleSigningRequest {
+    //    @ApiModelProperty(notes = "Digital signature certificate level, NOT_CERTIFIED or NO_CHANGES_ALLOWED", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, description = "Digital signature certificate level, NOT_CERTIFIED or NO_CHANGES_ALLOWED")
     private String certificatelevel;
+
+    //    @ApiModelProperty(notes = "Signing Profile name", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String profileName;
+
+    //    @ApiModelProperty(notes = "Document source path", required = true)
     private String src;
+
+    //    @ApiModelProperty(notes = "Document destination path", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String dest;
+
     private String spesimenPath;
+
     private String spesimenBase64;
+
+    //    @ApiModelProperty(notes = "Digital signature reason", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String reason;
+
+    //    @ApiModelProperty(notes = "Digital signature location", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String location;
+
+    //    @ApiModelProperty(notes = "Digital signature page", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private int visSignaturePage = 1;
+
+    //    @ApiModelProperty(notes = "Digital signature rectangle left lower x coordinate", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private int visLLX = 0;
+
+    //    @ApiModelProperty(notes = "Digital signature rectangle left lower y coordinate", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private int visLLY = 0;
+
+    //    @ApiModelProperty(notes = "Digital signature rectangle upper right x coordinate", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private int visURX = 0;
+
+    //    @ApiModelProperty(notes = "Digital signature rectangle upper right y coordinate", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private int visURY = 0;
+
+    //    @ApiModelProperty(notes = "Signing doc password if any | not implemented yet")
     private String docpass;
+
+    //    @ApiModelProperty(notes = "Json Web Token for security purpose")
     private String jwToken;
+
+    //    @ApiModelProperty(notes = "Reference Token for relation purpose")
     private String refToken;
+
+    //    @ApiModelProperty(notes = "Signing retry flag, fill 1 for retry")
     private String retryFlag;
+    private String systemId;
 
     public String getRetryFlag() {
         return this.retryFlag;
@@ -177,6 +209,14 @@ public class VisibleSigningRequest {
 
 
         return check;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 
     public String getJwToken() {

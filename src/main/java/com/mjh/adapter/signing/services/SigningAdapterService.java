@@ -90,6 +90,9 @@ public class SigningAdapterService {
             this.logger.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(input));
         } catch (Exception ignored) {}
         try {
+            if(input != null && (input.getReason() == null || "".equals(input.getReason().trim()))) input.setReason("-");
+            if(input != null && (input.getLocation() == null || "".equals(input.getLocation().trim()))) input.setLocation("-");
+
             if (input != null && "ALLOK".equals(input.checkInput())) {
                 checkAndWarningSpesificEmptyParam(input.getJwToken(), input.getRefToken());
                 MessageDigest sha256Digest = MessageDigest.getInstance("SHA-256");
@@ -100,6 +103,7 @@ public class SigningAdapterService {
                         input.setSrc(newSrc);
                 }
                 String signerProfileName = input.getProfileName();
+                this.systemId = input.getSystemId();
                 if (signerProfileName != null && !"".equals(signerProfileName.trim())) {
                     List<Certificate> certs = rtSigningService.getSignerCertChainRequestResponse(this.certChainUrl, signerProfileName, input.getJwToken(), input.getRefToken(), this.systemId, this.strKeyId, trxId);
                     Certificate[] chain = certs.<Certificate>toArray(new Certificate[certs.size()]);
@@ -112,6 +116,7 @@ public class SigningAdapterService {
                     Rectangle rectangle = new Rectangle(input.getVisLLX(), input.getVisLLY()
                             , newWidth
                             , newHeight);
+
                     try {
                         this.logger.debug("TrxID [{}] Setup spesimen image", trxId);
                         ImageData img;
@@ -185,6 +190,9 @@ public class SigningAdapterService {
             this.logger.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(input));
         } catch (Exception ignored) {}
         try {
+            if(input != null && (input.getReason() == null || "".equals(input.getReason().trim()))) input.setReason("-");
+            if(input != null && (input.getLocation() == null || "".equals(input.getLocation().trim()))) input.setLocation("-");
+
             if (input != null && "ALLOK".equals(input.checkInput())) {
                 checkAndWarningSpesificEmptyParam(input.getJwToken(), input.getRefToken());
                 MessageDigest sha256Digest = MessageDigest.getInstance("SHA-256");
@@ -195,6 +203,7 @@ public class SigningAdapterService {
                         input.setSrc(newSrc);
                 }
                 String signerProfileName = input.getProfileName();
+                this.systemId = input.getSystemId();
                 if (signerProfileName != null && !"".equals(signerProfileName.trim())) {
                     List<Certificate> certs = rtSigningService.getSignerCertChainRequestResponse(this.certChainUrl, signerProfileName, input.getJwToken(), input.getRefToken(), this.systemId, this.strKeyId, trxId);
                     Certificate[] chain = certs.<Certificate>toArray(new Certificate[certs.size()]);
@@ -319,6 +328,33 @@ public class SigningAdapterService {
         }
 
         try {
+            if (visibleSign) {
+                PdfPage page = pdfDocument.getPage(visPage);
+                int rotation = page.getRotation();
+                Rectangle rectangle1 = new Rectangle(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+                float width = rectangle1.getWidth();
+                float height = rectangle1.getHeight();
+                float marginX = 50;
+
+                if(rotation != 0) {
+                    logger.warn("*****page rotation --> " + rotation);
+                    switch (rotation) {
+                        case 90:
+                            rectangle.setX(page.getMediaBox().getWidth() - rectangle1.getY() - height);
+                            rectangle.setY(rectangle1.getX());
+                            rectangle.setWidth(height);
+                            rectangle.setHeight(width);
+                            break;
+                        case 180:
+                            break;
+                        case 270:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
             if (refToken != null && !"".equals(refToken))
                 reason = "[" + refToken + "] " + reason;
 

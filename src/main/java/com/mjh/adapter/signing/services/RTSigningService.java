@@ -110,4 +110,7 @@ public class RTSigningService {
         }
     }
 
+//    private String getBody(final User user) throws JsonProcessingException {
+//        return new ObjectMapper().writeValueAsString(user);
+//    }
 }

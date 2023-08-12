@@ -5,11 +5,12 @@ import com.itextpdf.signatures.IExternalSignature;
 import com.mjh.adapter.signing.common.SignAdapterException;
 import com.mjh.adapter.signing.model.ServerSigningResponse;
 import com.mjh.adapter.signing.services.RTSigningService;
+import com.mjh.adapter.signing.utils.MyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MyExternalSignature implements IExternalSignature {
-    Logger logger = LoggerFactory.getLogger(MyExternalSignature.class);
+    Logger logger = LoggerFactory.getLogger(com.mjh.adapter.signing.utils.MyExternalSignature.class);
 
     private String profileName;
 
@@ -67,6 +68,7 @@ public class MyExternalSignature implements IExternalSignature {
     public byte[] sign(byte[] bytes) throws SignAdapterException {
         this.logger.debug("TrxID [{}] Processing External Sign method process", this.trxId);
         try {
+//            return MyUtil.base64decode(MyUtil.POSTHashRequestResponse(this.signingUrl, this.profileName, MyUtil.base64encode(bytes), this.jwToken, this.refToken, this.systemId, this.keyId, this.shaChecksum, this.retryFlag, this.trxId));
             ServerSigningResponse signingResponse = rtSigningService.POSTHashV3RequestResponse(this.signingUrl, this.profileName, MyUtil.base64encode(bytes)
                     , this.jwToken, this.refToken, this.systemId, this.keyId, this.shaChecksum
                     , this.retryFlag, this.trxId);

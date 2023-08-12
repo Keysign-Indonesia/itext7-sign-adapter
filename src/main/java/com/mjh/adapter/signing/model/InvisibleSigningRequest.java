@@ -3,22 +3,42 @@ package com.mjh.adapter.signing.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InvisibleSigningRequest {
+    //    @ApiModelProperty(notes = "Digital signature certificate level, NOT_CERTIFIED or NO_CHANGES_ALLOWED", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, description = "Digital signature certificate level, NOT_CERTIFIED or NO_CHANGES_ALLOWED")
     private String certificatelevel;
+
+    //    @ApiModelProperty(notes = "Signing Profile name", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String profileName;
+
+    //    @ApiModelProperty(notes = "Document source path", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String src;
+
+    //    @ApiModelProperty(notes = "Document destination path", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String dest;
+
+    //    @ApiModelProperty(notes = "Digital signature reason", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String reason;
+
+    //    @ApiModelProperty(notes = "Digital signature location", required = true)
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     private String location;
+
+    //    @ApiModelProperty(notes = "Signing doc password if any | not implemented yet")
     private String docpass;
+
+    //    @ApiModelProperty(notes = "Json Web Token for security purpose")
     private String jwToken;
+
+    //    @ApiModelProperty(notes = "Reference Token for relation purpose")
     private String refToken;
+
+    //    @ApiModelProperty(notes = "Signing retry flag, fill 1 for retry")
     private String retryFlag;
+    private String systemId;
 
     public String getRetryFlag() {
         return this.retryFlag;
@@ -102,6 +122,14 @@ public class InvisibleSigningRequest {
             check = "ALLOK";
         }
         return check;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 
     public String getJwToken() {
